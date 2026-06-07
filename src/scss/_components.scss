@@ -1,0 +1,319 @@
+@import './variables';
+
+// Reusable Components & UI Blocks
+
+// 1. Buttons
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.8rem;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-elastic);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: #ffffff;
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.25);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
+    opacity: 0;
+    transition: opacity var(--transition-smooth);
+    z-index: 1;
+  }
+
+  span, svg {
+    position: relative;
+    z-index: 2;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+    
+    &::before {
+      opacity: 1;
+    }
+  }
+}
+
+.btn-outline {
+  border: 2px solid var(--color-border);
+  color: var(--color-text-primary);
+  background-color: transparent;
+
+  &:hover {
+    border-color: var(--color-primary);
+    background-color: rgba(99, 102, 241, 0.05);
+    transform: translateY(-3px);
+  }
+}
+
+// 2. Glass Cards
+.card {
+  background-color: var(--color-bg-card);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), border-color var(--transition-smooth);
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(99, 102, 241, 0.3);
+  }
+}
+
+// 3. Inputs & Forms
+.form-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.form-label {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 1rem 1.2rem;
+  background-color: rgba(0, 0, 0, 0.02);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  transition: all var(--transition-fast);
+  
+  [data-theme="dark"] & {
+    background-color: rgba(255, 255, 255, 0.01);
+  }
+
+  &::placeholder {
+    color: var(--color-text-muted);
+  }
+
+  &:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+    background-color: var(--color-bg-card);
+  }
+  
+  // Validation state classes
+  &.is-invalid {
+    border-color: var(--color-error);
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+  }
+
+  &.is-valid {
+    border-color: var(--color-success);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+  }
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.invalid-feedback {
+  color: var(--color-error);
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-top: 0.4rem;
+  display: none;
+  align-items: center;
+  gap: 0.25rem;
+
+  &.show {
+    display: flex;
+  }
+}
+
+// Honeypot hidden input field
+.form-honeypot {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+// 4. Loading Spinner
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #ffffff;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// 5. Toast Notifications (AJAX Form Feedback)
+.toast-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  pointer-events: none;
+  
+  @include mobile {
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+  }
+}
+
+.toast {
+  pointer-events: auto;
+  min-width: 300px;
+  max-width: 400px;
+  background-color: var(--color-bg-card);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  
+  &.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  
+  &.toast-success {
+    border-left: 4px solid var(--color-success);
+    .toast-icon { color: var(--color-success); }
+  }
+  
+  &.toast-error {
+    border-left: 4px solid var(--color-error);
+    .toast-icon { color: var(--color-error); }
+  }
+
+  &.toast-info {
+    border-left: 4px solid var(--color-primary);
+    .toast-icon { color: var(--color-primary); }
+  }
+
+  .toast-content {
+    flex: 1;
+  }
+
+  .toast-title {
+    font-weight: 700;
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    margin-bottom: 0.1rem;
+  }
+
+  .toast-desc {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+  }
+
+  .toast-close {
+    cursor: pointer;
+    color: var(--color-text-muted);
+    transition: color var(--transition-fast);
+    display: flex;
+    
+    &:hover {
+      color: var(--color-text-primary);
+    }
+  }
+}
+
+// 6. Phone Input Group & Custom Select
+.phone-input-group {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+
+  .form-select {
+    width: 130px;
+    padding: 1rem 0.75rem;
+    background-color: rgba(0, 0, 0, 0.02);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    
+    // Custom select dropdown icon
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d9745b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px;
+    padding-right: 2rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    [data-theme="dark"] & {
+      background-color: rgba(255, 255, 255, 0.01);
+    }
+
+    &:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(217, 116, 91, 0.15);
+      background-color: var(--color-bg-card);
+    }
+
+    &.is-invalid {
+      border-color: var(--color-error);
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    }
+
+    &.is-valid {
+      border-color: var(--color-success);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    }
+  }
+
+  .form-control {
+    flex: 1;
+  }
+}

@@ -1,0 +1,447 @@
+// Main Stylesheet
+@import './variables';
+@import './reset';
+@import './layout';
+@import './components';
+
+// ----------------------------------------------------
+// Premium Visual Enhancements (Blobs, Gradients, etc.)
+// ----------------------------------------------------
+
+.bg-blobs {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+
+  .blob {
+    position: absolute;
+    border-radius: var(--radius-full);
+    filter: blur(80px);
+    opacity: 0.15;
+    mix-blend-mode: multiply;
+    animation: blob-float 20s infinite alternate ease-in-out;
+    
+    [data-theme="dark"] & {
+      opacity: 0.12;
+      mix-blend-mode: screen;
+    }
+  }
+
+  .blob-1 {
+    top: 10%;
+    left: 10%;
+    width: 300px;
+    height: 300px;
+    background-color: var(--color-primary);
+  }
+
+  .blob-2 {
+    bottom: 20%;
+    right: 15%;
+    width: 350px;
+    height: 350px;
+    background-color: var(--color-secondary);
+    animation-delay: 5s;
+  }
+
+  .blob-3 {
+    top: 50%;
+    left: 45%;
+    width: 250px;
+    height: 250px;
+    background-color: var(--color-accent);
+    animation-delay: 10s;
+  }
+}
+
+@keyframes blob-float {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.95); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+// ----------------------------------------------------
+// Section Styling Skeletons
+// ----------------------------------------------------
+
+// Title formatting
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  position: relative;
+  
+  @include mobile {
+    font-size: 2rem;
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    margin: 0.75rem auto 0;
+    border-radius: var(--radius-full);
+  }
+}
+
+.section-subtitle {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 3.5rem;
+  color: var(--color-text-secondary);
+  font-size: 1.1rem;
+}
+
+// 1. Hero Section
+.hero-section {
+  min-height: 65vh;
+  display: flex;
+  align-items: center;
+  padding: 120px 0 60px;
+  position: relative;
+
+  @include mobile {
+    min-height: auto;
+    padding: 135px 0 40px;
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    
+    @include mobile {
+      align-items: center;
+      text-align: center;
+    }
+  }
+
+  .hero-tagline {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .hero-title {
+    font-size: 4.5rem;
+    line-height: 1.1;
+    letter-spacing: -2px;
+    margin-bottom: 0.5rem;
+    
+    @include mobile {
+      font-size: 3rem;
+    }
+
+    span.highlight {
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  .hero-desc {
+    font-size: 1.25rem;
+    color: var(--color-text-secondary);
+    max-width: 550px;
+    margin-bottom: 1rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    
+    @include mobile {
+      flex-direction: column;
+      width: 100%;
+      
+      .btn {
+        width: 100%;
+      }
+    }
+  }
+}
+
+// 2. About Section
+.about-section {
+  .about-grid {
+    align-items: center;
+  }
+
+  .about-img-wrapper {
+    position: relative;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    aspect-ratio: 1;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--color-border);
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-smooth);
+    }
+    
+    &:hover img {
+      transform: scale(1.03);
+    }
+  }
+
+  .about-info {
+    h3 {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+
+    .skill-tag {
+      background-color: var(--color-border);
+      color: var(--color-text-secondary);
+      padding: 0.4rem 1rem;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all var(--transition-fast);
+
+      &:hover {
+        background-color: var(--color-primary);
+        color: #ffffff;
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+// 3. Projects Section
+.project-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .project-img-wrapper {
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+    aspect-ratio: 16/10;
+    border: 1px solid var(--color-border);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-smooth);
+    }
+  }
+
+  &:hover .project-img-wrapper img {
+    transform: scale(1.05);
+  }
+
+  .project-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .project-desc {
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    
+    a {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+
+      &:hover {
+        color: var(--color-secondary);
+      }
+    }
+  }
+}
+
+// 4. Contact Section
+.contact-section {
+  .contact-grid {
+    align-items: stretch;
+  }
+
+  .contact-info-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+
+    .icon-box {
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-border);
+      background-color: var(--color-bg-base);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--color-primary);
+      margin-top: 2px;
+
+      svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
+
+    h4 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--color-text-muted);
+      margin-bottom: 0.15rem;
+    }
+
+    p {
+      margin: 0;
+      font-weight: 600;
+      color: var(--color-text-primary);
+    }
+  }
+
+  .social-links {
+    display: flex;
+    gap: 1rem;
+    
+    a {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-border);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--color-text-secondary);
+      transition: all var(--transition-fast);
+
+      &:hover {
+        background-color: var(--color-primary);
+        border-color: var(--color-primary);
+        color: #ffffff;
+        transform: translateY(-3px);
+      }
+    }
+  }
+}
+
+// ----------------------------------------------------
+// 5. Petsitting Traits, Lists & Sticker Showcase
+// ----------------------------------------------------
+
+// Highlighted Traits tags (Conclusion)
+.trait-tag {
+  padding: 0.5rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+  display: inline-block;
+  
+  &.tag-honesty {
+    background-color: rgba(217, 116, 91, 0.1);
+    color: var(--color-primary);
+    border: 1px solid rgba(217, 116, 91, 0.2);
+  }
+  &.tag-commitment {
+    background-color: rgba(112, 159, 136, 0.1);
+    color: var(--color-secondary);
+    border: 1px solid rgba(112, 159, 136, 0.2);
+  }
+  &.tag-reliability {
+    background-color: rgba(230, 184, 106, 0.1);
+    color: var(--color-accent);
+    border: 1px solid rgba(230, 184, 106, 0.2);
+  }
+  &.tag-communication {
+    background-color: rgba(99, 102, 241, 0.1);
+    color: #6366f1;
+    border: 1px solid rgba(99, 102, 241, 0.2);
+  }
+}
+
+// Experience checklist box animations
+.experience-list-card {
+  transition: transform var(--transition-smooth), border-color var(--transition-smooth);
+  
+  &:hover {
+    transform: translateY(-3px);
+    border-color: var(--color-primary) !important;
+  }
+  
+  li {
+    transition: transform var(--transition-fast);
+    
+    &:hover {
+      transform: translateX(3px);
+    }
+  }
+}
+
+// Sticker Card & Outdoors View
+.sticker-card {
+  transition: transform var(--transition-elastic), box-shadow var(--transition-smooth), border-color var(--transition-smooth);
+  
+  &:hover {
+    transform: scale(1.02) rotate(-1deg);
+    border-color: var(--color-primary) !important;
+  }
+  
+  .sticker-outline-wrapper {
+    position: relative;
+    
+    img {
+      filter: drop-shadow(0 8px 16px rgba(217, 116, 91, 0.15));
+      transition: transform var(--transition-smooth);
+      
+      &:hover {
+        transform: scale(1.06) rotate(3deg);
+      }
+    }
+  }
+}

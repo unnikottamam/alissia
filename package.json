@@ -1,0 +1,21 @@
+{
+  "name": "alissia-portfolio",
+  "version": "1.0.0",
+  "description": "Modern single page portfolio website using Vite, Sass, and GSAP",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "gsap": "^3.12.5",
+    "lucide": "^0.400.0"
+  },
+  "devDependencies": {
+    "sass": "^1.77.2",
+    "vite": "^5.2.11",
+    "vite-plugin-image-optimizer": "^1.1.8",
+    "vite-plugin-static-copy": "^1.0.6"
+  }
+}

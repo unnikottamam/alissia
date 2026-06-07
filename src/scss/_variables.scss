@@ -1,0 +1,70 @@
+// Core Variables & Theme Tokens - Warm Organic Petsitting Theme
+
+:root {
+  // Fonts
+  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  // Colors - Light Mode (Default: Warm Cream & Terracotta)
+  --color-primary: #d9745b;       // Soft Terracotta
+  --color-primary-rgb: 217, 116, 91;
+  --color-secondary: #709f88;     // Sage Green
+  --color-accent: #e6b86a;        // Golden Honey
+  --color-bg-base: #fdfaf6;       // Warm Cream Alabaster
+  --color-bg-card: rgba(255, 255, 255, 0.85);
+  --color-border: rgba(217, 116, 91, 0.15);
+  --color-text-primary: #3c322e;   // Deep Espresso Charcoal
+  --color-text-secondary: #60524c; // Warm Muted Charcoal
+  --color-text-muted: #a3958e;
+  --color-success: #528a6f;
+  --color-error: #c95c47;
+
+  // Visual Effects
+  --glass-blur: 12px;
+  --shadow-sm: 0 2px 8px rgba(96, 82, 76, 0.05);
+  --shadow-md: 0 10px 25px -5px rgba(96, 82, 76, 0.08);
+  --shadow-lg: 0 20px 40px -15px rgba(96, 82, 76, 0.12);
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+
+  // Animations & Transitions
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  --transition-elastic: 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+[data-theme="dark"] {
+  // Colors - Dark Mode (Cozy Charcoal-Espresso Dark)
+  --color-bg-base: #25201d;       // Cozy Deep Charcoal-Espresso
+  --color-bg-card: rgba(45, 38, 35, 0.75);
+  --color-border: rgba(217, 116, 91, 0.12);
+  --color-text-primary: #faf6f4;
+  --color-text-secondary: #d4c6bf;
+  --color-text-muted: #8c7e77;
+
+  // Adjust shadows for dark background
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+}
+
+// Responsive Breakpoints (Sass variables for media queries)
+$breakpoint-sm: 576px;
+$breakpoint-md: 1024px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1200px;
+
+// Media query mixins
+@mixin mobile {
+  @media (max-width: #{$breakpoint-md - 1px}) { @content; }
+}
+
+@mixin tablet {
+  @media (min-width: 768px) and (max-width: #{$breakpoint-lg - 1px}) { @content; }
+}
+
+@mixin desktop {
+  @media (min-width: #{$breakpoint-lg}) { @content; }
+}

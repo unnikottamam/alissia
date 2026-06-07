@@ -1,0 +1,330 @@
+@import './variables';
+
+// Container & Structural Layout
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.section {
+  padding: 4rem 0;
+  position: relative;
+  
+  @include mobile {
+    padding: 2.5rem 0;
+  }
+}
+
+.grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.grid-cols-2 {
+  grid-template-columns: 1fr;
+  
+  @include desktop {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.grid-cols-3 {
+  grid-template-columns: 1fr;
+  
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include desktop {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// Modern Navigation Header (Glassmorphic)
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  background-color: var(--color-bg-card);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-bottom: 1px solid var(--color-border);
+  transition: background-color var(--transition-smooth), border-color var(--transition-smooth);
+
+  .nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+
+    @include mobile {
+      flex-wrap: wrap;
+      height: auto;
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
+    }
+  }
+
+  // View Switcher (Pet Sitter / Art & Hobbies Toggler)
+  .view-switcher {
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    padding: 3px;
+    gap: 2px;
+    margin: 0 1.5rem;
+    
+    [data-theme="dark"] & {
+      background-color: rgba(255, 255, 255, 0.02);
+    }
+
+    @include mobile {
+      order: 3;
+      width: 100%;
+      margin: 0.75rem 0 0;
+      
+      .view-btn {
+        flex: 1;
+        text-align: center;
+        padding: 0.45rem 0.5rem;
+        font-size: 0.78rem;
+      }
+    }
+  }
+
+  .view-btn {
+    padding: 0.45rem 1rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    font-family: var(--font-heading);
+    border-radius: var(--radius-full);
+    color: var(--color-text-secondary);
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+
+    &:hover {
+      color: var(--color-text-primary);
+    }
+
+    &.active {
+      background-color: var(--color-primary);
+      color: #ffffff;
+      box-shadow: var(--shadow-sm);
+    }
+  }
+
+  .logo {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--color-text-primary);
+
+    @include mobile {
+      order: 1;
+    }
+
+    span {
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .logo-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-full);
+      object-fit: cover;
+      border: 2px solid var(--color-primary);
+      transition: transform var(--transition-fast);
+    }
+
+    &:hover .logo-avatar {
+      transform: scale(1.1) rotate(5deg);
+    }
+  }
+
+  // Navigation Links
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+
+    @media (min-width: #{$breakpoint-md}) and (max-width: #{$breakpoint-lg - 1px}) {
+      gap: 1.25rem; /* Tighten menu spacing on tablet so switcher fits in header */
+    }
+
+    @include mobile {
+      position: fixed;
+      top: 112px;
+      left: 0;
+      width: 100%;
+      height: calc(100vh - 112px);
+      background-color: var(--color-bg-base);
+      flex-direction: column;
+      justify-content: center;
+      gap: 2rem;
+      transform: translateX(100%);
+      transition: transform var(--transition-smooth);
+      z-index: 99;
+      border-top: 1px solid var(--color-border);
+      
+      &.active {
+        transform: translateX(0);
+      }
+    }
+  }
+
+  .nav-link {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    position: relative;
+    padding: 0.5rem 0;
+
+    &:hover, &.active {
+      color: var(--color-text-primary);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+      transition: width var(--transition-fast);
+    }
+
+    &:hover::after, &.active::after {
+      width: 100%;
+    }
+  }
+
+  // Right actions: Theme switch + Hamburger
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    @include mobile {
+      order: 2;
+    }
+  }
+
+  // Dark/Light Theme Button
+  .theme-toggle {
+    display: none !important; /* Hidden visually, always dark mode */
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-border);
+    justify-content: center;
+    align-items: center;
+    color: var(--color-text-secondary);
+    background-color: rgba(255, 255, 255, 0.03);
+    transition: all var(--transition-fast);
+
+    &:hover {
+      background-color: var(--color-border);
+      color: var(--color-text-primary);
+      transform: translateY(-2px);
+    }
+
+    .icon-sun {
+      display: none;
+    }
+
+    .icon-moon {
+      display: block;
+    }
+  }
+}
+
+// When dark theme is active, swap icon display
+[data-theme="dark"] .header {
+  .theme-toggle {
+    .icon-sun {
+      display: block;
+    }
+    .icon-moon {
+      display: none;
+    }
+  }
+}
+
+// Menu Mobile Toggle Button (Hamburger)
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  cursor: pointer;
+
+  @include mobile {
+    display: flex;
+  }
+
+  span {
+    height: 2px;
+    width: 100%;
+    background-color: var(--color-text-primary);
+    border-radius: var(--radius-full);
+    transition: all var(--transition-smooth);
+    transform-origin: left center;
+  }
+
+  &.active {
+    span:nth-child(1) {
+      transform: rotate(45deg) translate(2px, -2px);
+    }
+    span:nth-child(2) {
+      opacity: 0;
+      transform: scale(0);
+    }
+    span:nth-child(3) {
+      transform: rotate(-45deg) translate(2px, 2px);
+    }
+  }
+}
+
+// Footer
+.footer {
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--color-border);
+  background-color: var(--color-bg-card);
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+// Sub-view Toggle Rules
+body[data-view="art"] {
+  .view-pets {
+    display: none !important;
+  }
+  .view-art {
+    display: block !important;
+  }
+}
+body[data-view="pets"] {
+  .view-pets {
+    display: block !important;
+  }
+  .view-art {
+    display: none !important;
+  }
+}
