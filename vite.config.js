@@ -4,6 +4,7 @@ import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 export default defineConfig({
   root: './',
+  base: '/alissia/',
   plugins: [
     // Optimizes all images (SVG, PNG, JPG, WebP, AVIF) when executing 'vite build'
     ViteImageOptimizer({
